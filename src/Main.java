@@ -15,6 +15,7 @@ public class Main {
 
             frame.add(panel);
             frame.setSize(width, height);
+            frame.setTitle("Tetris Blind");
             frame.setVisible(true);
             frame.setResizable(false);
             frame.setFocusable(true);
@@ -22,10 +23,10 @@ public class Main {
             frame.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e) {
                     switch(e.getKeyCode()) {
-                        case KeyEvent.VK_LEFT  -> logic.moveLeft();
-                        case KeyEvent.VK_RIGHT -> logic.moveRight();
-                        case KeyEvent.VK_UP    -> logic.rotate();
-                        case KeyEvent.VK_DOWN  -> logic.fallDown();
+                        case KeyEvent.VK_LEFT: logic.moveLeft(); break;
+                        case KeyEvent.VK_RIGHT: logic.moveRight(); break;
+                        case KeyEvent.VK_UP: logic.rotate(); break;
+                        case KeyEvent.VK_DOWN: logic.fallDown(); break;
                     }
                 }
             });

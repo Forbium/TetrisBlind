@@ -9,6 +9,7 @@ public class TetrisLogic implements Runnable {
     public int[][][] flash = new int[4][4][2];
     private int blockForm;
     private volatile boolean game;
+    public boolean startMenu = true;
 
     public TetrisLogic(TetrisPanel panel) {
         this.panel = panel;
@@ -21,10 +22,12 @@ public class TetrisLogic implements Runnable {
         generateBlock();
         game = true;
         while (true) {
-            // тик логики
-            if(game) {
-                blockFall();
-                if(panel.flashLine==-1) panel.repaint();
+            if(!startMenu) {
+                // тик логики
+                if (game) {
+                    blockFall();
+                    if (panel.flashLine == -1) panel.repaint();
+                }
             }
             try {
                 Thread.sleep(500);
@@ -249,6 +252,7 @@ public class TetrisLogic implements Runnable {
 
     public void newGame() {
         game = false;
+        startMenu = false;
         try { Thread.sleep(600); } catch (InterruptedException e) {}
         System.out.println("Start New Game");
         for(boolean[] row : matrix) Arrays.fill(row, false);

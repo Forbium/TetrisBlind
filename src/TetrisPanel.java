@@ -15,6 +15,12 @@ public class TetrisPanel extends JPanel {
     public JLabel counter = new JLabel("0", SwingConstants.CENTER);
     public JLabel counterLine = new JLabel("0", SwingConstants.CENTER);
     public JLabel over = new JLabel("Game Over",SwingConstants.CENTER);
+    private JLabel gameName = new JLabel("TETRIS BLIND", SwingConstants.CENTER);
+    JButton button = new JButton("New Game");
+
+    private JLabel instr1 = new JLabel("1. Fallen blocks are hidden.",SwingConstants.LEFT);
+    private JLabel instr2 = new JLabel("<html>2. Upon falling, the block <br>highlights adjacent block elements.</html>",SwingConstants.LEFT);
+    private JLabel instr3 = new JLabel("<html>3. A completed line will illuminate <br>the entire field upon disappearing.</html>",SwingConstants.LEFT);
 
     public TetrisPanel(TetrisLogic logic, int width, int height, JFrame frame) {
         this.logic = logic;
@@ -22,8 +28,22 @@ public class TetrisPanel extends JPanel {
         Font();
 
         setLayout(null);
-        JButton button = new JButton("New Game");
+        gameName.setBounds(97, 12, 300, 50);
+        gameName.setFont(new Font("TimesRoman", Font.BOLD, 38));
+        gameName.setForeground(Color.BLACK);
+        add(gameName);
+        instr1.setBounds(10, 260, 400, 60);
+        instr1.setFont(new Font("TimesRoman", Font.BOLD, 16));
+        add(instr1);
+        instr2.setBounds(10, 300, 400,60);
+        instr2.setFont(new Font("TimesRoman", Font.BOLD, 16));
+        add(instr2);
+        instr3.setBounds(10, 350, 400,60);
+        instr3.setFont(new Font("TimesRoman", Font.BOLD, 16));
+        add(instr3);
+
         button.setBounds(10, 10, 100, 30);
+        button.setFont(new Font("TimesRoman", Font.BOLD, 13));
         add(button);
         button.setFocusPainted(false);
         button.addActionListener(e -> {
@@ -49,19 +69,45 @@ public class TetrisPanel extends JPanel {
         add(over);
     }
 
+    public void StartMenu() {
+        g2.setColor(Color.GRAY);
+        g2.fillRect(0,0,494,446);
+        gameName.setVisible(true);
+        instr1.setVisible(true);
+        instr2.setVisible(true);
+        instr3.setVisible(true);
+    }
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g2 = (Graphics2D) g;
         g2.drawImage(canvas, null, null);
+        if (logic.startMenu){
+            gameName.setVisible(true);
+            button.setBounds(197, 70, 100, 30);
+            counterLine.setVisible(false);
+            counter.setVisible(false);
+            over.setVisible(false);
+            StartMenu();
+        } else {
+            gameName.setVisible(false);
+            instr1.setVisible(false);
+            instr2.setVisible(false);
+            instr3.setVisible(false);
 
-        paintField();
-        if(flashLine!=-1)paintLine(flashLine);
-        else if(flash)paintFlash();
+            button.setBounds(10, 10, 100, 30);
+            counterLine.setVisible(true);
+            counter.setVisible(true);
 
-        paintRect(logic.block[0][0],logic.block[0][1], Color.BLUE);
-        paintRect(logic.block[1][0],logic.block[1][1], Color.BLUE);
-        paintRect(logic.block[2][0],logic.block[2][1], Color.BLUE);
-        paintRect(logic.block[3][0],logic.block[3][1], Color.BLUE);
+            paintField();
+            if (flashLine != -1) paintLine(flashLine);
+            else if (flash) paintFlash();
+
+            paintRect(logic.block[0][0], logic.block[0][1], Color.BLUE);
+            paintRect(logic.block[1][0], logic.block[1][1], Color.BLUE);
+            paintRect(logic.block[2][0], logic.block[2][1], Color.BLUE);
+            paintRect(logic.block[3][0], logic.block[3][1], Color.BLUE);
+        }
     }
 
     private void paintField() {
