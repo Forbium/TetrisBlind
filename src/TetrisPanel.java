@@ -22,6 +22,8 @@ public class TetrisPanel extends JPanel {
     private JLabel instr2 = new JLabel("<html>2. Upon falling, the block <br>highlights adjacent block elements.</html>",SwingConstants.LEFT);
     private JLabel instr3 = new JLabel("<html>3. A completed line will illuminate <br>the entire field upon disappearing.</html>",SwingConstants.LEFT);
 
+    private JLabel autor = new JLabel("by Forbium", SwingConstants.RIGHT);
+
     public TetrisPanel(TetrisLogic logic, int width, int height, JFrame frame) {
         this.logic = logic;
         canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -41,6 +43,11 @@ public class TetrisPanel extends JPanel {
         instr3.setBounds(10, 350, 400,60);
         instr3.setFont(new Font("TimesRoman", Font.BOLD, 16));
         add(instr3);
+
+        autor.setBounds(370, 374, 100,30);
+        autor.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        autor.setForeground(Color.WHITE);
+        add(autor);
 
         button.setBounds(10, 10, 100, 30);
         button.setFont(new Font("TimesRoman", Font.BOLD, 13));
