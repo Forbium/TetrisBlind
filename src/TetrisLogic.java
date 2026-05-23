@@ -10,6 +10,7 @@ public class TetrisLogic implements Runnable {
     private int blockForm;
     private volatile boolean game;
     public boolean startMenu = true;
+    private boolean fallenDelay = false;
 
     public TetrisLogic(TetrisPanel panel) {
         this.panel = panel;
@@ -23,6 +24,10 @@ public class TetrisLogic implements Runnable {
         game = true;
         while (true) {
             if(!startMenu) {
+                if (fallenDelay) {
+                    try {Thread.sleep(500);} catch (InterruptedException e) {}
+                    fallenDelay=false;
+                }
                 // тик логики
                 if (game) {
                     blockFall();
@@ -243,11 +248,13 @@ public class TetrisLogic implements Runnable {
     }
 
     public void fallDown() {
-        boolean flag = false;
-        while (!flag) {
+        boolean flag = true;
+        while (flag) {
             flag = blockFall();
-            panel.repaint();
         }
+        panel.repaint();
+        fallenDelay=true;
+        try { Thread.sleep(600); } catch (InterruptedException e) {}
     }
 
     public void newGame() {

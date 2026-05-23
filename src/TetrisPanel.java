@@ -12,6 +12,8 @@ public class TetrisPanel extends JPanel {
     public boolean flash=false;
     public int c = 0;
     public int cl=0;
+    private JLabel counterTitle = new JLabel("Blocks:", SwingConstants.CENTER);
+    private JLabel counterLineTitle = new JLabel("Lines:", SwingConstants.CENTER);
     public JLabel counter = new JLabel("0", SwingConstants.CENTER);
     public JLabel counterLine = new JLabel("0", SwingConstants.CENTER);
     public JLabel over = new JLabel("Game Over",SwingConstants.CENTER);
@@ -23,6 +25,7 @@ public class TetrisPanel extends JPanel {
     private JLabel instr3 = new JLabel("<html>3. A completed line will illuminate <br>the entire field upon disappearing.</html>",SwingConstants.LEFT);
 
     private JLabel autor = new JLabel("by Forbium", SwingConstants.RIGHT);
+    private JLabel version = new JLabel("v: 1.0.3", SwingConstants.RIGHT);
 
     public TetrisPanel(TetrisLogic logic, int width, int height, JFrame frame) {
         this.logic = logic;
@@ -48,6 +51,10 @@ public class TetrisPanel extends JPanel {
         autor.setFont(new Font("TimesRoman", Font.BOLD, 14));
         autor.setForeground(Color.WHITE);
         add(autor);
+        version.setBounds(370, 360, 100,30);
+        version.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        version.setForeground(Color.WHITE);
+        add(version);
 
         button.setBounds(10, 10, 100, 30);
         button.setFont(new Font("TimesRoman", Font.BOLD, 13));
@@ -58,12 +65,23 @@ public class TetrisPanel extends JPanel {
             frame.requestFocus();
         });
 
-        counter.setBounds(380, 10,80,30);
+        counterTitle.setBounds(380, 10,80,20);
+        counterTitle.setBackground(Color.LIGHT_GRAY);
+        counterTitle.setOpaque(true);
+        counterTitle.setFont(new Font("TimesRoman", Font.BOLD, 17));
+        add(counterTitle);
+        counter.setBounds(380, 26,80,30);
         counter.setBackground(Color.LIGHT_GRAY);
         counter.setOpaque(true);
         counter.setFont(new Font("TimesRoman", Font.BOLD, 20));
         add(counter);
-        counterLine.setBounds(380, 60, 80,30);
+
+        counterLineTitle.setBounds(380, 60,80,20);
+        counterLineTitle.setBackground(Color.LIGHT_GRAY);
+        counterLineTitle.setOpaque(true);
+        counterLineTitle.setFont(new Font("TimesRoman", Font.BOLD, 17));
+        add(counterLineTitle);
+        counterLine.setBounds(380, 76, 80,30);
         counterLine.setBackground(Color.LIGHT_GRAY);
         counterLine.setOpaque(true);
         counterLine.setFont(new Font("TimesRoman", Font.BOLD, 20));
@@ -92,6 +110,8 @@ public class TetrisPanel extends JPanel {
         if (logic.startMenu){
             gameName.setVisible(true);
             button.setBounds(197, 70, 100, 30);
+            counterTitle.setVisible(false);
+            counterLineTitle.setVisible(false);
             counterLine.setVisible(false);
             counter.setVisible(false);
             over.setVisible(false);
@@ -103,6 +123,8 @@ public class TetrisPanel extends JPanel {
             instr3.setVisible(false);
 
             button.setBounds(10, 10, 100, 30);
+            counterTitle.setVisible(true);
+            counterLineTitle.setVisible(true);
             counterLine.setVisible(true);
             counter.setVisible(true);
 
